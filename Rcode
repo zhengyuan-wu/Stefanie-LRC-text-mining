@@ -1,0 +1,25 @@
+install.packages("jiebaR")
+library(jiebaR)
+install.packages("wordcloud2")
+library(wordcloud2)
+wk=worker()
+wk["我遇见谁会有怎样的对白"]
+segment("我遇见谁会有怎样的对白",wk)
+Stef<-scan("C:/Users/Ryan/Desktop/好好学习天天向上/好玩的R代码/我姿歌词文本挖掘/Stefanie.txt",sep="\n",what="",encoding="unknown")
+head(Stef)
+mixseg<-worker()
+segment(head(Stef),mixseg)
+Stef2<-segment(Stef,mixseg)
+length(Stef2)
+Stef2
+sort(table(Stef2),decreasing=T)[1:50]
+Stef3<-Stef2[nchar(Stef2)>1 & nchar(Stef2)<5]
+sort(table(Stef3),decreasing=T)[1:50]
+Stef4<-Stef2[nchar(Stef2)>2& nchar(Stef2)<6]
+sort(table(Stef4),decreasing=T)[1:50]
+wordFreq100=sort(table(Stef4),decreasing=T)[1:489]
+wordFreq100 
+wordcloud2(wordFreq100, size = 1,shape = 'pentagon')
+stefanie1=system.file("examples/stefanie1.png",package = "wordcloud2")
+###读取形状图片，注意图片默认放在wordclou2的sample包中，如："d:/Program Files/R/R-3.3.0/library/wordcloud2/examples/batman.png"
+wordcloud2(wordFreq100, figPath = stefanie1, size = 1,color = "black")
